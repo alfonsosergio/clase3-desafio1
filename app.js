@@ -1,14 +1,19 @@
+// Segunda entrega
 const fs = require('fs')
-const { title } = require('process')
+
+
 
 class ProductManager {
-
   constructor() {
+
     this.products = []
     this.path = './productoslista/products.json'
+
   }
 
+
   async getProducts(){
+
     try{
       if(fs.existsSync(this.path)){
         const infoProducts = await fs.promises.readFile(this.path, 'utf-8')
@@ -25,6 +30,7 @@ class ProductManager {
 
 
   async addProduct(title, description, price, thumbnail, code, stock) {
+
     try {
     if(!title || !description || !price || !thumbnail || !code || !stock) {
       return console.log('Error, product incomplete');
@@ -52,6 +58,7 @@ class ProductManager {
   }
 
   async getProductById(idProduct){
+
     try {
       if (fs.existsSync(this.path)){
         await fs.promises.readFile(this.path, 'utf-8')
@@ -70,6 +77,7 @@ class ProductManager {
   }
 
   async updateProduct(idProduct, change){
+
     let read = await fs.promises.readFile(this.path, 'utf-8')
     read = JSON.parse(read)
     let product = await this.getProductById(idProduct)
@@ -91,6 +99,7 @@ class ProductManager {
   }
 
   async deleteProduct(idProduct){
+
     let read = await fs.promises.readFile(this.path, 'utf-8')
     read = JSON.parse(read)
     let product = await this.getProductById(idProduct)
@@ -103,6 +112,7 @@ class ProductManager {
 
 
   #generarId() {
+
     let id =
       this.products.length === 0
         ? 1
@@ -111,12 +121,18 @@ class ProductManager {
   }
 
   #evaluarProductoId(id){
+
     return this.products.find(product => product.id === id)
   }
 
   #evaluarCode(code){
+
     return this.products.find(product => product.code === code)
   }
 }
+
+
+
+
 
 const product = new ProductManager()
